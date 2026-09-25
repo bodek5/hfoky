@@ -1,3 +1,2 @@
 # hfoky
-* hfiky website (hfoky.pages.dev), new website with tutorials and content. *
-* 
+** hfoky website (hfoky.pages.dev), new website with tutorials and content. **
