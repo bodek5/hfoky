@@ -1124,13 +1124,34 @@
 
     const bottomLinks = document.querySelectorAll('.bottom-nav-link');
     const bottomNav = document.getElementById('bottom-nav');
+    let manualNavIndex = null;
+    let navReleaseTimer;
+
+    function setBottomNavIndex(index) {
+      bottomNav.style.setProperty('--active-index', String(index));
+      bottomLinks.forEach((item, itemIndex) => {
+        item.classList.toggle('active', itemIndex === index);
+      });
+    }
 
     bottomLinks.forEach((link, index) => {
-      link.addEventListener('click', () => {
-        bottomNav.style.setProperty('--active-index', String(index));
-        bottomLinks.forEach((item, itemIndex) => {
-          item.classList.toggle('active', itemIndex === index);
-        });
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        manualNavIndex = index;
+        setBottomNavIndex(index);
+
+        const target = index === 0
+          ? document.getElementById('top')
+          : document.getElementById(index === 1 ? 'read' : 'links');
+        if (target) {
+          window.scrollTo({ top: Math.max(0, target.offsetTop - 52), behavior: 'smooth' });
+        }
+
+        clearTimeout(navReleaseTimer);
+        navReleaseTimer = setTimeout(() => {
+          manualNavIndex = null;
+          updateBottomNavActive();
+        }, 700);
       });
     });
 
@@ -1145,7 +1166,8 @@
       else if (linksSection && y >= linksSection.offsetTop) activeIndex = 2;
       else if (readSection && y >= readSection.offsetTop) activeIndex = 1;
 
-      bottomNav.style.setProperty('--active-index', String(activeIndex));
+      if (manualNavIndex !== null) return;
+      setBottomNavIndex(activeIndex);
 
       bottomLinks.forEach((link, index) => {
         link.classList.toggle('active', index === activeIndex);
@@ -1153,7 +1175,16 @@
     }
     window.addEventListener('scroll', () => {
       sessionStorage.setItem('hfoky-home-scroll', String(window.scrollY));
-      updateBottomNavActive();
+      if (manualNavIndex === null) {
+        updateBottomNavActive();
+        return;
+      }
+
+      clearTimeout(navReleaseTimer);
+      navReleaseTimer = setTimeout(() => {
+        manualNavIndex = null;
+        updateBottomNavActive();
+      }, 180);
     });
     window.addEventListener('load', updateBottomNavActive);
     initTheme();
