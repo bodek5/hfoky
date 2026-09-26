@@ -35,6 +35,7 @@
 
     *, *::before, *::after { box-sizing: border-box; }
     a, button { -webkit-tap-highlight-color: transparent; }
+    a:focus:not(:focus-visible), button:focus:not(:focus-visible) { outline: none; }
     html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
     body {
       margin: 0;
@@ -1122,6 +1123,16 @@
     }
 
     const bottomLinks = document.querySelectorAll('.bottom-nav-link');
+    const bottomNav = document.getElementById('bottom-nav');
+
+    bottomLinks.forEach((link, index) => {
+      link.addEventListener('click', () => {
+        bottomNav.style.setProperty('--active-index', String(index));
+        bottomLinks.forEach((item, itemIndex) => {
+          item.classList.toggle('active', itemIndex === index);
+        });
+      });
+    });
 
     function updateBottomNavActive() {
       const y = window.scrollY + 100;
@@ -1134,7 +1145,7 @@
       else if (linksSection && y >= linksSection.offsetTop) activeIndex = 2;
       else if (readSection && y >= readSection.offsetTop) activeIndex = 1;
 
-      document.getElementById('bottom-nav').style.setProperty('--active-index', String(activeIndex));
+      bottomNav.style.setProperty('--active-index', String(activeIndex));
 
       bottomLinks.forEach((link, index) => {
         link.classList.toggle('active', index === activeIndex);
