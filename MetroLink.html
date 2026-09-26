@@ -95,6 +95,9 @@
 		.article-card h2 { font-size: 1.8rem; margin: 0 0 18px; }
 		.article-card p { color: var(--text-secondary); margin: 0 0 18px; }
 		.article-card p:last-child { margin-bottom: 0; }
+		.download-links { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+		.download-link { display: inline-flex; align-items: center; justify-content: center; padding: 13px 24px; color: #fff; background: var(--accent); border-radius: 14px; text-decoration: none; font-weight: 600; transition: background 0.25s, transform 0.25s; }
+		.download-link:hover { background: var(--accent-hover); transform: translateY(-2px); }
 		.article-actions { max-width: 760px; margin: 24px auto 0; text-align: center; }
 		.button { display: inline-block; padding: 13px 28px; color: #fff; background: var(--accent); border-radius: 14px; text-decoration: none; font-weight: 600; transition: background 0.25s, transform 0.25s; }
 		.button:hover { background: var(--accent-hover); transform: translateY(-2px); }
@@ -131,8 +134,10 @@
 				<h2>MetroLink</h2>
 				<p>App who i created some months ago</p>
         <p>MetroLink, controls your pc by windows phone device</p>
-				<p>https://onedrive.live.com/?id=%2Fpersonal%2F6d6ff6b30d239ba1%2FDocuments%2FAplikacje%2FMetroLinkPC%2Ezip&listurl=%2Fpersonal%2F6d6ff6b30d239ba1%2FDocuments&e=JcrvCK&migratedtospo=true&parent=%2Fpersonal%2F6d6ff6b30d239ba1%2FDocuments%2FAplikacje&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3UvYy82ZDZmZjZiMzBkMjM5YmExL0lRQXVqTGhNb0lKelFhVnlfVldScnRIbEFYNVgwRkY5THd4MHdQWFIweUtDSmk0P2U9SmNydkNL&ga=1</p>
-        <p>https://store.live.net.co/app/374</p>
+				<div class="download-links">
+					<a class="download-link desktop-link" href="https://onedrive.live.com/?id=%2Fpersonal%2F6d6ff6b30d239ba1%2FDocuments%2FAplikacje%2FMetroLinkPC%2Ezip&listurl=%2Fpersonal%2F6d6ff6b30d239ba1%2FDocuments&e=JcrvCK&migratedtospo=true&parent=%2Fpersonal%2F6d6ff6b30d239ba1%2FDocuments%2FAplikacje&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3UvYy82ZDZmZjZiMzBkMjM5YmExL0lRQXVqTGhNb0lKelFhVnlfVldScnRIbEFYNVgwRkY5THd4MHdQWFIweUtDSmk0P2U9SmNydkNL&ga=1" target="_blank" rel="noopener noreferrer">Download for PC</a>
+					<a class="download-link mobile-link" href="https://store.live.net.co/app/374" target="_blank" rel="noopener noreferrer">Download for Mobile</a>
+				</div>
 			</article>
 			<div class="article-actions">
 				<a class="button" href="index.html">Back to homepage</a>
