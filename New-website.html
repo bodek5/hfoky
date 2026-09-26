@@ -53,11 +53,55 @@
 		}
 		body.dark-mode header { background: rgba(20,20,20,0.65); border-bottom-color: rgba(255,255,255,0.08); }
 		.header-inner, .container { max-width: 900px; margin: 0 auto; padding: 0 22px; }
-		.header-inner { height: 52px; display: flex; align-items: center; justify-content: space-between; }
+		.header-inner {
+			height: 52px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			position: relative;
+		}
 		.logo, .back-link { color: var(--text); text-decoration: none; }
 		.logo { font-family: Georgia, serif; font-weight: 600; font-size: 20px; letter-spacing: 0.03em; }
 		.back-link { color: var(--text-secondary); font-size: 14px; font-weight: 500; transition: color 0.2s; }
 		.back-link:hover { color: var(--accent); }
+		.theme-toggle {
+			position: absolute;
+			top: 50%;
+			right: 0;
+			transform: translateY(-50%);
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 42px;
+			height: 42px;
+			border: 1px solid rgba(255,255,255,0.32);
+			border-radius: 14px;
+			background: rgba(255,255,255,0.12);
+			color: var(--text);
+			backdrop-filter: blur(18px) saturate(150%);
+			-webkit-backdrop-filter: blur(18px) saturate(150%);
+			box-shadow: inset 0 1px 0 rgba(255,255,255,0.32), 0 8px 18px rgba(0,0,0,0.08);
+			cursor: pointer;
+			transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+		}
+		.theme-toggle:hover {
+			background: rgba(255,255,255,0.2);
+			transform: translateY(-51%);
+			box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 10px 20px rgba(0,0,0,0.1);
+		}
+		.theme-toggle .theme-icon {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 18px;
+			height: 18px;
+			line-height: 1;
+		}
+		.theme-toggle .theme-icon svg {
+			width: 18px;
+			height: 18px;
+			display: block;
+		}
 		main { padding: 52px 0 72px; }
 		.article-hero {
 			padding: 82px 22px 74px;
@@ -103,11 +147,72 @@
 		.bottom-nav { display: none; }
 		@media (max-width: 768px) {
 			main { padding-bottom: 88px; }
-			.bottom-nav { display: flex; position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%); z-index: 9; width: calc(100% - 32px); max-width: 340px; padding: 10px 8px calc(10px + var(--safe-bottom)); justify-content: space-around; background: rgba(255,255,255,0.78); backdrop-filter: saturate(180%) blur(var(--blur)); -webkit-backdrop-filter: saturate(180%) blur(var(--blur)); border: 0.5px solid rgba(255,255,255,0.8); border-radius: 28px; box-shadow: 0 8px 32px rgba(0,0,0,0.12); }
-			body.dark-mode .bottom-nav { background: rgba(40,40,40,0.85); border-color: rgba(255,255,255,0.1); }
-			.bottom-nav a { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-secondary); text-align: center; text-decoration: none; font-size: 12px; font-weight: 500; padding: 7px 4px; }
-			.bottom-nav .nav-icon { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-			.bottom-nav a.active, .bottom-nav a:hover { color: var(--accent); }
+			.bottom-nav {
+				display: flex;
+				position: fixed;
+				bottom: 12px;
+				left: 50%;
+				transform: translateX(-50%);
+				z-index: 9;
+				width: calc(100% - 22px);
+				max-width: 360px;
+				padding: 10px 8px calc(10px + var(--safe-bottom));
+				justify-content: space-around;
+				background: rgba(14,14,14,0.18);
+				backdrop-filter: blur(26px) saturate(180%) brightness(1.08);
+				-webkit-backdrop-filter: blur(26px) saturate(180%) brightness(1.08);
+				border: 1px solid rgba(255,255,255,0.22);
+				border-radius: 30px;
+				box-shadow: 0 14px 30px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.28), inset 0 -1px 0 rgba(255,255,255,0.08);
+			}
+			.bottom-nav::before {
+				content: '';
+				position: absolute;
+				inset: 1px;
+				border-radius: 28px;
+				background: rgba(255,255,255,0.04);
+				pointer-events: none;
+			}
+			body.dark-mode .bottom-nav {
+				background: rgba(18,18,18,0.26);
+				border-color: rgba(255,255,255,0.12);
+				box-shadow: 0 14px 30px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 0 rgba(255,255,255,0.04);
+			}
+			.bottom-nav a {
+				position: relative;
+				z-index: 1;
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: 4px;
+				color: rgba(255,255,255,0.8);
+				background: rgba(0,0,0,0.22);
+				border: 1px solid rgba(255,255,255,0.06);
+				text-align: center;
+				text-decoration: none;
+				font-size: 11px;
+				font-weight: 700;
+				padding: 8px 6px 7px;
+				border-radius: 18px;
+				transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+			}
+			.bottom-nav .nav-icon {
+				width: 22px;
+				height: 22px;
+				fill: none;
+				stroke: currentColor;
+				stroke-width: 2;
+				stroke-linecap: round;
+				stroke-linejoin: round;
+			}
+			.bottom-nav a.active, .bottom-nav a:hover {
+				background: rgba(55, 150, 170, 0.24);
+				border-color: rgba(125, 220, 200, 0.28);
+				color: #f6fffe;
+				box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 8px 18px rgba(28, 118, 160, 0.12);
+				transform: translateY(-1px);
+			}
 		}
 	</style>
 </head>
@@ -116,6 +221,9 @@
 		<div class="header-inner">
 			<a class="logo" href="index.html">hfoky - web</a>
 			<a class="back-link" href="index.html">Back to homepage</a>
+			<button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle light and dark mode" title="Toggle light and dark mode">
+				<span class="theme-icon" id="theme-icon" aria-hidden="true"></span>
+			</button>
 		</div>
 	</header>
 
@@ -154,6 +262,56 @@
 	</nav>
 
 	<footer><p>&copy; 2026 hfoky web</p></footer>
+
+	<script>
+		const themeToggle = document.getElementById('theme-toggle');
+		const themeIcon = document.getElementById('theme-icon');
+		const themeKey = 'hfoky-theme';
+		const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+		function applyTheme(mode) {
+			const isDark = mode === 'dark';
+			const sunIcon = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"></circle><path d="M12 2.5v2.2M12 19.3v2.2M4.93 4.93l1.56 1.56M17.51 17.51l1.56 1.56M2.5 12h2.2M19.3 12h2.2M4.93 19.07l1.56-1.56M17.51 6.49l1.56-1.56"></path></svg>';
+			const moonIcon = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.2A7.8 7.8 0 0 1 9.8 4a8.1 8.1 0 1 0 10.2 10.2Z"></path></svg>';
+			document.body.classList.toggle('dark-mode', isDark);
+			if (themeIcon) {
+				themeIcon.innerHTML = isDark ? moonIcon : sunIcon;
+			}
+			if (themeToggle) {
+				themeToggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+				themeToggle.setAttribute('title', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+			}
+		}
+
+		function getStoredTheme() {
+			try {
+				const saved = localStorage.getItem(themeKey);
+				if (saved === 'light' || saved === 'dark') return saved;
+			} catch (error) {}
+			return systemTheme.matches ? 'dark' : 'light';
+		}
+
+		function initTheme() {
+			applyTheme(getStoredTheme());
+			if (themeToggle) {
+				themeToggle.addEventListener('click', () => {
+					const nextTheme = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
+					try { localStorage.setItem(themeKey, nextTheme); } catch (error) {}
+					applyTheme(nextTheme);
+				});
+			}
+			if (typeof systemTheme.addEventListener === 'function') {
+				systemTheme.addEventListener('change', (event) => {
+					const savedTheme = localStorage.getItem(themeKey);
+					if (!savedTheme) {
+						applyTheme(event.matches ? 'dark' : 'light');
+					}
+				});
+			}
+		}
+
+		initTheme();
+	</script>
 </body>
 </html>
 ok
