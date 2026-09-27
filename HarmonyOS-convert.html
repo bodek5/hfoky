@@ -8,25 +8,19 @@
 	<style>
 		:root {
 			--bg: #faf8f5;
-			--bg-card: rgba(255,255,255,0.72);
 			--text: #2c2825;
 			--text-secondary: #5c5652;
 			--accent: #168a5a;
 			--accent-hover: #0f754b;
-			--border: #e8e4df;
-			--blur: 32px;
-			--radius: 12px;
 			--radius-lg: 18px;
 			--safe-bottom: env(safe-area-inset-bottom);
 		}
 		body.dark-mode {
 			--bg: #0a0a0a;
-			--bg-card: rgba(26,26,26,0.78);
 			--text: #f5f5f5;
 			--text-secondary: #b0b0b0;
 			--accent: #35c98a;
 			--accent-hover: #54d9a0;
-			--border: #2a2a2a;
 		}
 		*, *::before, *::after { box-sizing: border-box; }
 		a, button { -webkit-tap-highlight-color: transparent; }
@@ -264,6 +258,8 @@
 			*, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 		}
 	</style>
+	<link rel="stylesheet" href="shared.css">
+	<script src="shared.js" defer></script>
 </head>
 <body>
 	<script>try { if (localStorage.getItem('hfoky-theme') === 'dark') document.body.classList.add('dark-mode'); } catch (error) {}</script>
@@ -320,71 +316,9 @@
 	<footer><p>&copy; 2026 hfoky web</p></footer>
 
 	<script>
-		const themeToggle = document.getElementById('theme-toggle');
-		const themeIcon = document.getElementById('theme-icon');
-		const themeKey = 'hfoky-theme';
-		const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
-
-		function saveTheme(mode) {
-			try {
-				localStorage.setItem(themeKey, mode);
-			} catch (error) {}
-		}
-
-		function applyTheme(mode) {
-			const isDark = mode === 'dark';
-			const sunIcon = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"></circle><path d="M12 2.5v2.2M12 19.3v2.2M4.93 4.93l1.56 1.56M17.51 17.51l1.56 1.56M2.5 12h2.2M19.3 12h2.2M4.93 19.07l1.56-1.56M17.51 6.49l1.56-1.56"></path></svg>';
-			const moonIcon = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.2A7.8 7.8 0 0 1 9.8 4a8.1 8.1 0 1 0 10.2 10.2Z"></path></svg>';
-			document.body.classList.toggle('dark-mode', isDark);
-			if (themeIcon) {
-				themeIcon.innerHTML = isDark ? moonIcon : sunIcon;
-			}
-			if (themeToggle) {
-				themeToggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
-				themeToggle.setAttribute('title', isDark ? 'Switch to light mode' : 'Switch to dark mode');
-				themeToggle.setAttribute('aria-pressed', String(isDark));
-			}
-		}
-
-		function getStoredTheme() {
-			try {
-				const saved = localStorage.getItem(themeKey);
-				if (saved === 'light' || saved === 'dark') return saved;
-			} catch (error) {}
-			return systemTheme.matches ? 'dark' : 'light';
-		}
-
-		function initTheme() {
-			applyTheme(getStoredTheme());
-			if (themeToggle) {
-				themeToggle.addEventListener('click', () => {
-					const nextTheme = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
-					saveTheme(nextTheme);
-					applyTheme(nextTheme);
-				});
-			}
-			if (typeof systemTheme.addEventListener === 'function') {
-				systemTheme.addEventListener('change', (event) => {
-					try {
-						const savedTheme = localStorage.getItem(themeKey);
-						if (!savedTheme) {
-							applyTheme(event.matches ? 'dark' : 'light');
-						}
-					} catch (error) {}
-				});
-			}
-		}
-
 		if ('scrollRestoration' in history) {
 			history.scrollRestoration = 'manual';
 		}
-
-		initTheme();
-		window.addEventListener('storage', (event) => {
-			if (event.key === themeKey && (event.newValue === 'light' || event.newValue === 'dark')) {
-				applyTheme(event.newValue);
-			}
-		});
 
 		window.addEventListener('load', () => {
 			requestAnimationFrame(() => document.body.classList.add('loaded'));
@@ -392,4 +326,3 @@
 	</script>
 </body>
 </html>
-ok

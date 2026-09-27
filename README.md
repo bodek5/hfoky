@@ -41,8 +41,11 @@ python -m http.server 8000
 Then open `http://localhost:8000`.
 
 ## Project structure
+├── index.css            # Homepage-specific layout and components
 
 ```text
+├── shared.css           # Shared visual system and responsive UI
+├── shared.js            # Shared theme and navigation behavior
 .
 ├── index.html
 ├── HarmonyOS-convert.html
