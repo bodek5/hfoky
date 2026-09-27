@@ -31,7 +31,7 @@
 		*, *::before, *::after { box-sizing: border-box; }
 		a, button { -webkit-tap-highlight-color: transparent; }
 		a:focus:not(:focus-visible), button:focus:not(:focus-visible) { outline: none; }
-		html { scroll-behavior: smooth; }
+		html { scroll-behavior: smooth; scroll-padding-top: 52px; }
 		body {
 			margin: 0;
 			font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Text', sans-serif;
@@ -67,6 +67,7 @@
 			-webkit-backdrop-filter: saturate(190%) blur(38px);
 			border-bottom: 0.5px solid rgba(255,255,255,0.5);
 			box-shadow: 0 1px 0 rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.6);
+			will-change: background, transform;
 		}
 		body.dark-mode header { background: rgba(20,20,20,0.52); border-bottom-color: rgba(255,255,255,0.08); }
 		.header-inner, .container { max-width: 900px; margin: 0 auto; padding: 0 22px; }
@@ -266,6 +267,10 @@
 				box-shadow: none;
 				transform: translateY(-1px) scale(1.04);
 			}
+		}
+		@media (prefers-reduced-motion: reduce) {
+			html { scroll-behavior: auto; }
+			*, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 		}
 	</style>
 </head>
