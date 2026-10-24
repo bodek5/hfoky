@@ -53,6 +53,7 @@ if (document.getElementById('article-list')) {
     { label: 'TikTok', href: 'https://www.tiktok.com/@bodek5_huawei', subtitle: 'My account', image: 'tiktok.jpg' }
   ];
   const articles = [
+    { img: 'pliki/hfoky-app.jpg', title: 'Hfoky App', teaser: 'A concept for tracking costs and calculating profit from flipping items', page: 'hfoky-app.html' },
     { img: 'pliki/HarmonyTuto.jpg', title: 'EMUI --> HarmonyOS convert tutorial!', teaser: 'Fast tutorial with KirinTool', page: 'HarmonyOS-convert.html' },
     { img: 'pliki/newwebsite.png', title: 'New Website!', teaser: 'New Website!', page: 'New-website.html' },
     { img: 'pliki/metrolink.jpg', title: 'My old Windows Phone app - MetroLink (no longer updated)', teaser: 'My old Windows Phone app - MetroLink (no longer updated)', page: 'MetroLink.html' }

@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+	<meta name="description" content="Hfoky App is a concept for tracking costs and calculating profit from buying and reselling items.">
+	<title>Hfoky App - hfoky Web</title>
+	<style>
+		:root {
+			--bg: #faf8f5;
+			--text: #2c2825;
+			--text-secondary: #5c5652;
+			--accent: #168a5a;
+			--accent-hover: #0f754b;
+			--radius-lg: 18px;
+			--safe-bottom: env(safe-area-inset-bottom);
+		}
+		body.dark-mode {
+			--bg: #0a0a0a;
+			--text: #f5f5f5;
+			--text-secondary: #b0b0b0;
+			--accent: #35c98a;
+			--accent-hover: #54d9a0;
+			--card: rgba(26,26,26,0.72);
+		}
+		body {
+			margin: 0;
+			font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Text', sans-serif;
+			font-size: 17px;
+			line-height: 1.6;
+			color: var(--text);
+			background: var(--bg);
+			transition: background 0.4s, color 0.3s;
+		}
+		main {
+			opacity: 0;
+			transform: translateY(18px);
+			animation: page-rise 0.42s cubic-bezier(0.22, 1, 0.36, 1) 0.08s forwards;
+		}
+		@keyframes page-rise {
+			from { opacity: 0; transform: translateY(18px); }
+			to { opacity: 1; transform: translateY(0); }
+		}
+		header {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 10;
+			background: rgba(255,255,255,0.42);
+			backdrop-filter: saturate(190%) blur(38px);
+			-webkit-backdrop-filter: saturate(190%) blur(38px);
+			border-bottom: 0.5px solid rgba(255,255,255,0.5);
+			box-shadow: 0 1px 0 rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.6);
+			will-change: background, transform;
+		}
+		body.dark-mode header {
+			background: rgba(20,20,20,0.52);
+			border-bottom-color: rgba(255,255,255,0.08);
+		}
+		main { padding: 52px 0 72px; }
+		.article-hero {
+			padding: 82px 22px 74px;
+			text-align: center;
+			position: relative;
+			overflow: hidden;
+			background: url('pliki/hfoky-app.jpg') center / cover no-repeat;
+		}
+		.article-hero::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: rgba(255,255,255,0.42);
+			backdrop-filter: blur(2px);
+			-webkit-backdrop-filter: blur(2px);
+		}
+		body.dark-mode .article-hero::before { background: rgba(10,10,10,0.42); }
+		.article-hero > * { position: relative; z-index: 1; }
+		.eyebrow {
+			margin: 0 0 8px;
+			color: var(--accent);
+			font-size: 13px;
+			font-weight: 700;
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+		}
+		h1, h2 {
+			font-family: Georgia, serif;
+			font-weight: 600;
+			letter-spacing: 0.02em;
+		}
+		h1 {
+			margin: 0 0 12px;
+			font-size: clamp(2.2rem, 6vw, 3.2rem);
+			line-height: 1.15;
+		}
+		.lead { max-width: 560px; margin: 0 auto; color: var(--text-secondary); font-size: 1.15rem; }
+		.article-wrap { padding: 56px 22px 0; }
+		.article-card {
+			max-width: 760px;
+			margin: 0 auto;
+			padding: clamp(26px, 6vw, 52px);
+			background: rgba(255,255,255,0.64);
+			backdrop-filter: saturate(125%) blur(14px);
+			-webkit-backdrop-filter: saturate(125%) blur(14px);
+			border: 1px solid rgba(255,255,255,0.08);
+			border-radius: var(--radius-lg);
+			box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+		}
+		body.dark-mode .article-card { background: rgba(26,26,26,0.68); border-color: rgba(255,255,255,0.05); }
+		.article-card h2 { font-size: 1.8rem; margin: 0 0 18px; }
+		.article-card p, .article-card li { color: var(--text-secondary); }
+		.article-card p { margin: 0 0 18px; }
+		.article-card p:last-child { margin-bottom: 0; }
+		.article-card ul { margin: 0; padding-left: 24px; }
+		.article-card li + li { margin-top: 8px; }
+		.download-links { display: flex; justify-content: center; margin-top: 22px; }
+		.download-link {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			padding: 12px 22px;
+			color: #fff;
+			background: var(--accent);
+			border-radius: 10px;
+			text-decoration: none;
+			font-weight: 600;
+			transition: background 0.25s, transform 0.25s;
+		}
+		.download-link:hover { background: var(--accent-hover); transform: translateY(-2px); }
+		body.dark-mode .download-link { background: #123b36; color: #effbf8; }
+		body.dark-mode .download-link:hover { background: #1b5149; }
+		.article-actions { max-width: 760px; margin: 24px auto 0; text-align: center; }
+		.button {
+			display: inline-block;
+			padding: 13px 28px;
+			color: #fff;
+			background: var(--accent);
+			border-radius: 10px;
+			text-decoration: none;
+			font-weight: 600;
+			transition: background 0.25s, transform 0.25s;
+		}
+		.button:hover { background: var(--accent-hover); transform: translateY(-2px); }
+		body.dark-mode .button { background: #123b36; color: #effbf8; }
+		body.dark-mode .button:hover { background: #1b5149; }
+		body.dark-mode .article-card .download-link { background: #123b36; color: #effbf8; }
+		body.dark-mode .article-card .download-link:hover { background: #1b5149; }
+		footer {
+			padding: 32px 22px;
+			text-align: center;
+			color: rgba(255,255,255,0.7);
+			font-size: 13px;
+			background: #1a1816;
+		}
+		footer p { margin: 0; }
+		.bottom-nav { display: none; }
+		@media (max-width: 768px) {
+			main { padding-bottom: 88px; }
+			.bottom-nav {
+				display: flex;
+				position: fixed;
+				bottom: 12px;
+				left: 50%;
+				transform: translateX(-50%);
+				z-index: 9;
+				width: calc(100% - 22px);
+				max-width: 380px;
+				padding: 6px 6px calc(6px + var(--safe-bottom));
+				justify-content: space-around;
+				background: rgba(24,28,27,0.48);
+				backdrop-filter: blur(22px) saturate(135%);
+				-webkit-backdrop-filter: blur(22px) saturate(135%);
+				border: 1px solid rgba(255,255,255,0.16);
+				border-radius: 16px;
+				box-shadow: 0 8px 22px rgba(0,0,0,0.16), inset 0 1px 0 rgba(255,255,255,0.12);
+			}
+			.bottom-nav::after {
+				content: '';
+				position: absolute;
+				z-index: 0;
+				left: 6px;
+				top: 6px;
+				bottom: 6px;
+				width: calc((100% - 12px) / 3);
+				border-radius: 10px;
+				background: rgba(105,178,160,0.2);
+				pointer-events: none;
+				transform: translateX(calc(var(--active-index, 1) * 100%));
+				transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), background 0.28s ease;
+			}
+			body.dark-mode .bottom-nav {
+				background: rgba(16,19,19,0.64);
+				border-color: rgba(255,255,255,0.1);
+				box-shadow: 0 8px 22px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06);
+			}
+			.bottom-nav a {
+				position: relative;
+				z-index: 1;
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: 4px;
+				padding: 7px 6px 6px;
+				border-radius: 10px;
+				color: rgba(255,255,255,0.8);
+				background: transparent;
+				border: 0;
+				text-align: center;
+				text-decoration: none;
+				font-size: 11px;
+				font-weight: 700;
+				transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+			}
+			.bottom-nav a.active, .bottom-nav a:hover {
+				background: transparent;
+				border-color: transparent;
+				color: #f6fffe;
+				box-shadow: none;
+				transform: translateY(-1px) scale(1.04);
+			}
+			.bottom-nav .nav-icon {
+				width: 22px;
+				height: 22px;
+				fill: none;
+				stroke: currentColor;
+				stroke-width: 2;
+				stroke-linecap: round;
+				stroke-linejoin: round;
+			}
+		}
+		@media (prefers-reduced-motion: reduce) {
+			*, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+		}
+	</style>
+	<link rel="stylesheet" href="shared.css">
+	<script src="shared.js" defer></script>
+</head>
+<body>
+	<script>try { if (localStorage.getItem('hfoky-theme') === 'dark') document.body.classList.add('dark-mode'); } catch (error) {}</script>
+	<header>
+		<div class="header-inner">
+			<a class="logo" href="index.html">hfoky - web</a>
+			<nav class="header-nav" aria-label="Main navigation">
+				<a href="index.html">Home</a>
+				<a href="index.html#read">Read</a>
+				<a href="index.html#links">Links</a>
+			</nav>
+			<button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle light and dark mode" title="Toggle light and dark mode">
+				<span class="theme-icon" id="theme-icon" aria-hidden="true"></span>
+			</button>
+		</div>
+	</header>
+
+	<main>
+		<section class="article-hero">
+			<p class="eyebrow">APP</p>
+			<h1>Hfoky App</h1>
+			<p class="lead">A simple way to estimate how much you earn from buying and reselling items.</p>
+		</section>
+
+		<section class="article-wrap">
+			<article class="article-card">
+				<h2>Know your profit on every flip</h2>
+				<p>Hfoky App is a concept for a practical profit calculator for people who buy phones and resell them. Add what you paid, what you sold an item for, and any extra costs—such as shipping, repairs, or platform fees—to estimate your profit.</p>
+				<p>The idea is to make it easier to keep each deal organized, see which flips are worth your time, and understand your results over time.</p>
+				<ul>
+					<li>Record purchase and selling prices.</li>
+					<li>Include additional costs that affect your earnings.</li>
+					<li>See an estimated profit for each item.</li>
+				</ul>
+				<div class="download-links">
+					<a class="download-link" href="https://github.com/hfoky/app-update/releases" target="_blank" rel="noopener noreferrer">Download the app</a>
+				</div>
+			</article>
+			<div class="article-actions">
+				<a class="button" href="index.html">Back to homepage</a>
+			</div>
+		</section>
+	</main>
+
+	<nav class="bottom-nav" aria-label="Navigation" style="--active-index: 1">
+		<a href="index.html">
+			<svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+			Home
+		</a>
+		<a href="index.html#read" class="active" aria-current="page">
+			<svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path><line x1="8" y1="7" x2="16" y2="7"></line><line x1="8" y1="11" x2="16" y2="11"></line></svg>
+			Read
+		</a>
+		<a href="index.html#links">
+			<svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+			Links
+		</a>
+	</nav>
+
+	<footer><p>&copy; 2026 hfoky web</p></footer>
+
+	<script>
+		if ('scrollRestoration' in history) {
+			history.scrollRestoration = 'manual';
+		}
+
+		window.addEventListener('load', () => {
+			requestAnimationFrame(() => document.body.classList.add('loaded'));
+		});
+	</script>
+</body>
+</html>
